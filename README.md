@@ -1,2 +1,2 @@
 # Data-Structres-Practice
-Includes code related to the Data Structures implemented in JAVA
+Consists of different .java files each has implemetation of data structures and few operations performed on them
