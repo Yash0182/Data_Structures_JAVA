@@ -1,0 +1,47 @@
+public class MyClass {
+    public static void main(String args[]) {
+        Solution sol = new Solution();
+        System.out.println(sol.shortestPalindrome("Yash"));
+    }
+}
+
+class Solution {
+    public String shortestPalindrome(String s) {
+        if(s.length()==0)
+            return "";
+        String str = s+"#"+new StringBuffer(s).reverse().toString();
+        int kmp=findKMP(str,0,str.length());
+        System.out.println(kmp);;
+        String res=s.substring(kmp,s.length());
+        return new StringBuffer(res).reverse().toString()+s;
+    }
+    //Main KMP Algorithm Function
+    int findKMP(String s,int j,int length)
+    {
+        int kmp[]=new int[length];
+        kmp[0]=0;
+        for(int i=1;i<length;)
+        {
+            if(s.charAt(j)==s.charAt(i))
+            {
+                kmp[i]=j+1;
+                i++;
+                j++;
+            }
+            else
+            {
+                if(j!=0)
+                {
+                    j=kmp[j-1];
+                }
+                else
+                {
+                    kmp[i]=0;
+                    i++;
+                }
+            }
+            
+        }
+        return kmp[kmp.length-1];
+    }
+}
