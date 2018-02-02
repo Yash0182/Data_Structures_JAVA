@@ -1,0 +1,92 @@
+public class MyClass {
+    public static void main(String args[]) {
+        Solution sol = new Solution();
+        System.out.println(sol.longestPalindrome("YashhsaY"));
+    }
+}
+
+class Solution {
+    public String longestPalindrome(String s) {
+        
+        //This is Manacher's solution for O(n)
+        int centre=0,j=0,right=0,mirr=0,maxLPSCenterPosition=0,maxLPSLength=0,start=0,end=0;
+        char ch[]=s.toCharArray();
+        char chn[]= new char[2*s.length()+3];
+        chn[0]='$';chn[chn.length-1]='@';
+        int index=0;
+        for(int i=1;i<chn.length-1;i++)
+        {               
+            if(i%2==0 && index<s.length())
+              {
+              chn[i]=ch[index++];
+              }
+            else
+               chn[i]='#';
+        }
+        int [] P=new int[chn.length];
+        for(int i=1;i<P.length-1;i++)
+        {
+            mirr=2*centre-i;
+            if(i<right)
+            {
+                P[i]=Math.min(P[mirr],right-i);
+            }
+            while(chn[i+(1+P[i])]==chn[i-(1+P[i])])
+            {
+                P[i]++;
+            }
+            if (P[i] > maxLPSLength){
+            maxLPSLength = P[i];
+            maxLPSCenterPosition = i;
+            }
+            if(i+P[i]>right)
+            {
+                centre = i;
+                right = i+P[i];
+            }
+        }
+        int max=0;
+        for(int i=0;i<P.length;i++)
+        {
+            if(max<P[i])
+            {max=P[i];}
+        }
+        start = (maxLPSCenterPosition - maxLPSLength) / 2;
+        end = start + maxLPSLength - 1;
+        System.out.println(start +" " +end);    
+        return s.substring(start,end+1);  
+       }
+}
+        //Below Solution is Based on Dynamic Programming Approach which is O(n^2) solution 
+       /*
+        boolean result[][] = new boolean[s.length()][s.length()];
+        int index=0,maxlength=1;
+        for(int i=0;i<result.length;i++)
+        {
+            result[i][i]=true;
+        }
+        for(int i=0;i<s.length()-1;i++)
+        {
+            int j =i+1;
+            if(s.charAt(i)==s.charAt(j))
+            {
+                index=i;
+                maxlength=2;
+                result[i][j]=true;
+            }
+        }
+        for(int length=3;length<=s.length();length++)
+        {
+            for(int i=0;i<s.length()-length+1;i++)
+            {
+                int j=i+length-1;
+                if((s.charAt(i)==s.charAt(j)) && result[i+1][j-1])
+                    {
+                        index=i;
+                        maxlength=length;
+                        result[i][j]=true ;
+                    }
+            }
+        }
+        return s.substring(index,maxlength+index);
+        */
