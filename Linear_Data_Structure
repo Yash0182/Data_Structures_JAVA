@@ -575,7 +575,7 @@ class Node
     }
 }
 
-public class assign4
+public class Solution
 {
     
     public static void main(String args[])
