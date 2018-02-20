@@ -9,7 +9,7 @@ class Solution {
     public String shortestPalindrome(String s) {
         if(s.length()==0)
             return "";
-        String str = s+"#"+new StringBuffer(s).reverse().toString();
+        String str = s+"#"+new StringBuffer(s).reverse().toString(); //Adding '#' just to bring the endpoint
         int kmp=findKMP(str,0,str.length());
         System.out.println(kmp);;
         String res=s.substring(kmp,s.length());
