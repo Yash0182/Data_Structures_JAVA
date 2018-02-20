@@ -102,7 +102,7 @@ class LinkedList
         }
     }
 }
-public class NewClass {
+public class ListSwap {
     public static void main(String args[])
     {
         LinkedList L = new LinkedList();
