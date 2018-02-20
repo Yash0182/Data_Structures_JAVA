@@ -1,0 +1,57 @@
+
+import java.util.*;
+public class Graph
+{
+    Stack<Integer> st = new Stack();
+    HashSet<Integer> vis = new HashSet();
+    ArrayList<Integer> vertex[] ;
+    Graph(int v)
+    {
+        vertex = new ArrayList[v];
+        for(int i=0;i<v;i++)
+        {
+            vertex[i]=new ArrayList();
+        }
+    }
+    public void addEdge(int v1, int v2)
+    {
+        vertex[v1].add(v2);
+    }
+    public void dFS(int v)
+    {
+        st.push(v);
+        vis.add(v);
+        helper(st,vis);
+    }
+    public void helper(Stack<Integer> st, HashSet<Integer> vis)
+    {
+        while(!st.isEmpty())
+        {
+        int x = st.pop();
+        System.out.println(x);
+        for(int nei:vertex[x])
+        {
+            if(!vis.contains(nei))
+            {
+                st.push(nei);
+                vis.add(nei);
+                helper(st,vis);
+            }
+        }
+        }
+    }
+    public static void main(String args[])
+    {
+        Graph g = new Graph(6);
+        g.addEdge(5, 2);
+        g.addEdge(5, 0);
+        g.addEdge(4, 0);
+        g.addEdge(4, 1);
+        g.addEdge(0, 3);
+        g.addEdge(3, 1);
+        g.addEdge(1, 0);      
+        g.addEdge(5, 4);
+        g.dFS(5);
+    }
+}
+
