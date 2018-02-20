@@ -1,2 +1,3 @@
 # Data-Structres-Practice
-Consists of different .java files each has implemetation of data structures and few operations performed on them
+Includes Data Structures implementations and operations performed on them.
+Also includes Some well known Algorithms implemented in JAVA
