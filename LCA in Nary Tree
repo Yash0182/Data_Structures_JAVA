@@ -1,5 +1,11 @@
 import java.util.*;
-
+/*
+To find LCA in Nary tree, traverse the Tree in Eularian Way (part of DFS) and construct two ArrayList
+1. Euler arraylist: Keeps track of all the nodes coming in the way
+2. Depth arraylist: Keeps track of the level
+Find the minimum depth between the two nodes whose relation needed to be find out and record its index position.
+Return the indexed value from the euler matrix.
+*/
 public class Tree
 {
     ArrayList<Integer> child[];
