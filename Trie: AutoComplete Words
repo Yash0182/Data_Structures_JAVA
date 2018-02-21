@@ -1,0 +1,89 @@
+import java.util.*;
+/*
+There is a slight change while implementing auto complete feature with Trie, we have to add additional string "value" that stores the value o string 
+upto that point in the Trie Structure
+*/
+
+class TrieNode
+{
+    String value;
+    boolean endOfWord;
+    HashMap<Character,TrieNode> hm;
+    public TrieNode()
+    {
+        this.value="";
+        hm=new HashMap();
+        endOfWord=false;
+    }
+    TrieNode(String value)
+    {
+        this.value=value;
+        hm=new HashMap();
+        endOfWord=false;
+    }
+    public List<String> allPrefixes()
+    {
+        List<String> res = new ArrayList();
+        if(this.endOfWord)
+        {
+            res.add(this.value);
+        }
+        for(TrieNode t:this.hm.values())
+        {
+            List<String> res1=t.allPrefixes();
+            res.addAll(res1);
+        }
+        return res;
+    }
+}
+public class Trie
+{
+    TrieNode root;
+    Trie()
+    {
+        root = new TrieNode();
+    }
+    public void insert(String s)
+    {
+        TrieNode temp=root;
+        String val="";
+        for(char c: s.toCharArray())
+        {
+            val+=c;
+            if(!temp.hm.containsKey(c))
+            {
+                temp.hm.put(c,new TrieNode(val));
+            }
+            temp=temp.hm.get(c);
+        }
+        temp.endOfWord=true;
+    }
+    
+    public List<String> autoComplete(String prefix)
+    {
+        TrieNode temp=root;
+        
+        for(char c:prefix.toCharArray())
+        {
+            if(!temp.hm.containsKey(c))
+            {
+                return new ArrayList<String>();
+            }
+            temp=temp.hm.get(c);
+        }
+        return temp.allPrefixes();
+    }
+    
+    public static void main(String args[])
+    {
+        Trie t = new Trie();
+        t.insert("gigahertz");
+        t.insert("gibberish");
+        t.insert("gimmickry");
+        t.insert("gigantism");
+        t.insert("galaxy");
+        t.insert("universe");
+        t.insert("infinite");
+        System.out.println(t.autoComplete("gig"));
+    }
+}
