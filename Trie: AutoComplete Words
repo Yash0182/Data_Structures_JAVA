@@ -26,9 +26,9 @@ class TrieNode
         List<String> res = new ArrayList();
         if(this.endOfWord)
         {
-            res.add(this.value);
+            res.add(this.value);                           //Current TrieNode has all the characters of the string, uptill him, as we had not stored any character in the root
         }
-        for(TrieNode t:this.hm.values())
+        for(TrieNode t:this.hm.values())                   //Sort of BFS, searching for all the values of the hashMap
         {
             List<String> res1=t.allPrefixes();
             res.addAll(res1);
@@ -41,7 +41,7 @@ public class Trie
     TrieNode root;
     Trie()
     {
-        root = new TrieNode();
+        root = new TrieNode();                            //We are not storing any character to the root.value parameter of the TrieNode
     }
     public void insert(String s)
     {
@@ -52,7 +52,7 @@ public class Trie
             val+=c;
             if(!temp.hm.containsKey(c))
             {
-                temp.hm.put(c,new TrieNode(val));
+                temp.hm.put(c,new TrieNode(val));           
             }
             temp=temp.hm.get(c);
         }
