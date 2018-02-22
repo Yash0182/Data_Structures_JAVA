@@ -1,0 +1,123 @@
+import java.util.*;
+public class MinHeap
+{
+    static int []heap;
+    static int size;
+    int maxSize;
+    public static final int FIRST = 1;
+    MinHeap(int capacity)
+    {
+        size=0;
+        heap = new int[capacity+1];
+        Arrays.fill(heap,Integer.MAX_VALUE);
+        heap[0]=Integer.MIN_VALUE;
+        maxSize=capacity;
+    }
+    public int parent(int pos)
+    {
+        return (int)Math.floor(pos/2);
+    }
+    public int leftChild(int pos)
+    {
+        return 2*pos;
+    }
+    public int rightChild(int pos)
+    {
+        return 2*pos+1;
+    }
+    public void insert(int no)
+    {
+        if(size+1>maxSize)
+        {
+            return;
+        }
+        
+        heap[++size]=no;
+        int current = size;
+        
+        while((heap[current]<heap[parent(current)]) && current>0)  //moving the lower value element to the top
+        {
+            swap(current,parent(current));
+            current=parent(current);
+        }
+        
+        
+    }
+    public boolean hasChild(int pos)
+    {
+        if(pos>=maxSize/2 && pos<=maxSize)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void swap(int p1,int p2)
+    {
+        int temp=heap[p1];
+        heap[p1]=heap[p2];
+        heap[p2]=temp;
+    }
+    public void minHeapify(int i)           //Main Function which takes care of the heap after we remove FIRST element from heap         
+    {
+        
+            if(!hasChild(i))
+            {
+                if((heap[leftChild(i)]<heap[i]) || (heap[rightChild(i)]<heap[i]))
+                {
+                    if(heap[leftChild(i)]<heap[rightChild(i)])
+                    {
+                        swap(leftChild(i),i);
+                        minHeapify(leftChild(i));
+                    }
+                    else
+                    {
+                        swap(rightChild(i),i);
+                        minHeapify(rightChild(i));
+                    }
+                }
+            }
+        
+    }
+    public void minHep()
+    {
+        for(int i=maxSize/2;i>=1;i--)
+        {
+            minHeapify(i);
+        }
+    }
+    public int remove()
+    {
+        int pop = heap[FIRST];
+        heap[FIRST]=heap[size--];                //As an element is removed, so there is space for one
+        minHeapify(FIRST);
+        return pop;
+    }
+    public static void main(String args[])
+    {
+        MinHeap m = new MinHeap(7);
+        m.insert(21);
+        m.insert(13);
+        m.insert(20);
+        m.insert(121);
+        m.insert(22);
+        m.insert(11);
+        m.insert(10);
+        m.insert(303);
+        m.insert(25);
+        m.insert(19);
+        m.insert(18);
+        m.insert(303);
+        m.insert(10);
+        System.out.println(m.remove());
+        System.out.println(m.remove());
+        System.out.println(m.remove());
+        System.out.println(m.remove());
+        System.out.println(m.remove());
+        System.out.println(m.remove());
+        System.out.println(m.remove());
+        m.insert(4);
+        m.insert(6);
+        System.out.println(m.remove());
+        
+    }
+}
