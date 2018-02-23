@@ -35,7 +35,7 @@ public class MinHeap
         heap[++size]=no;
         int current = size;
         
-        while((heap[current]<heap[parent(current)]) && current>0)  //moving the lower value element to the top
+        while((heap[current]<heap[parent(current)]) )  //moving the lower value element to the top
         {
             swap(current,parent(current));
             current=parent(current);
@@ -78,13 +78,7 @@ public class MinHeap
             }
         
     }
-    public void minHep()
-    {
-        for(int i=maxSize/2;i>=1;i--)
-        {
-            minHeapify(i);
-        }
-    }
+   
     public int remove()
     {
         int pop = heap[FIRST];
@@ -117,6 +111,8 @@ public class MinHeap
         System.out.println(m.remove());
         m.insert(4);
         m.insert(6);
+        System.out.println(m.remove());
+        System.out.println(m.remove());
         System.out.println(m.remove());
         
     }
