@@ -1,0 +1,44 @@
+public class MovingAverage {
+    LinkedList<Integer> queue;
+    int size;
+    double avg;
+ 
+    public MovingAverage(int size) {
+        this.queue = new LinkedList<Integer>();
+        this.size = size;
+    }
+ 
+    public double movingAverage(int val) 
+    {
+        if(queue.size()<this.size)
+        {
+            queue.offer(val);
+            int sum=0;
+            for(int i: queue)
+            {
+                sum+=i;
+            }
+            avg = (double)sum/queue.size();
+ 
+            return avg;
+        }
+        else
+        {
+            int head = queue.poll();
+            double minus = (double)head/this.size;
+            queue.offer(val);
+            double add = (double)val/this.size;
+            avg = avg + add - minus;
+            return avg;
+        }
+    }
+    public static void main(String args[]) {
+        MyClass m = new MyClass(3);
+        System.out.println(m.movingAverage(2));
+        System.out.println(m.movingAverage(12));
+        System.out.println(m.movingAverage(10));
+        System.out.println(m.movingAverage(8));
+        System.out.println(m.movingAverage(6));
+        System.out.println(m.movingAverage(4));
+    }
+}
