@@ -1,0 +1,55 @@
+//Below code is to find the permutation of any given string using command line arguements
+
+
+import java.util.*;
+public class MyClass {
+    public static void main(String args[]) {
+        String n=(args[0]);
+        HashSet<String>rs = new HashSet();
+        helper(rs,n,0,n.length()-1);
+        
+        System.out.println(rs);
+    }
+    public static void helper(HashSet<String>rs,String res , int l, int n)
+    {
+        if(l>n)
+        return;
+        
+        if(l==n)
+        System.out.println(res);
+       
+        for(int i=l;i<=n;i++)
+        {
+            
+            res=swap(res,i,l);
+            rs.add(res);
+            helper(rs,res,l+1,n);
+            res=swap(res,i,l);
+        }
+        
+    }
+    public static String swap(String st,int i)           //function to change string abc->Abc,ABC,ABc
+    {
+        char c = st.charAt(i);
+        
+        char ch[]=st.toCharArray();
+        if(Character.isUpperCase(c))
+        {
+            c=Character.toLowerCase(c);
+        }
+        else if(Character.isLowerCase(c))
+        {
+            c=Character.toUpperCase(c);
+        }
+        ch[i]=c;
+        return new String(ch);
+    }
+    public static String swap(String st,int i,int l)      //function to change the string as abc-> acb, cab,cba
+    {
+        char ch[]=st.toCharArray();
+        char c = ch[i];
+        ch[i]=ch[l];
+        ch[l]=c;
+        return new String(ch);
+    }
+}
