@@ -1,0 +1,88 @@
+//The file consists of code Base for determining the number of minimum moves required to get to the top of snake and ladder game.
+//Given the Dice is Bias.
+
+
+import java.util.*;
+public class SnakeAndLadder {
+    
+    int size;
+    Vertex v;
+    Queue<Vertex>q = new LinkedList();
+    int[]board;
+    boolean[]vis;
+    SnakeAndLadder(int []board)
+    {
+        this.board=board;
+        v=new Vertex();
+        this.size = board.length;
+        v.cellNo=0;
+        v.moves=0;
+        q.add(v);
+        vis = new boolean[board.length];
+    }
+    public int minMoves()
+    {
+        Vertex temp=null;
+        while(!q.isEmpty())
+        {
+            temp =q.poll();
+            if(temp.cellNo==size-1)
+            {
+                return temp.moves;
+            }
+            
+            for(int i=temp.cellNo;i<temp.cellNo+6 && i<size ;i++)
+            {
+                if(vis[i])
+                continue;
+                vis[i]=true;
+                Vertex vtemp = new Vertex();
+                if(board[i]!=-1)
+                {
+                    vtemp.cellNo=board[i];
+                    vtemp.moves=temp.moves+1;
+                }
+                else
+                {
+                    vtemp.cellNo=i;
+                    vtemp.moves=temp.moves+1;
+                }
+                q.offer(vtemp);
+            }
+            
+        }
+        return temp.moves;
+        
+        
+    }
+    
+    public static void main(String args[])
+    {
+        int board[]=new int[36];
+        for (int i = 0; i <board.length ; i++) {
+            board[i] = -1;
+        }
+        //ladders
+        board[2] =  10;
+        board[14] = 22;
+        board[20] = 28;
+
+        // Snakes
+        board[11] = 1;
+        board[29] = 3;
+        board[34] = 21;
+        SnakeAndLadder s = new SnakeAndLadder(board);
+        System.out.println(s.minMoves());
+    }
+    
+    
+}
+class Vertex
+{
+    int cellNo;
+    int moves;
+
+    public Vertex() {
+    }
+    
+}
