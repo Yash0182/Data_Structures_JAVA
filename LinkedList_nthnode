@@ -1,0 +1,80 @@
+//File contains code base for finding nth node from back.
+//It is a single linked list, can be done in one pass (take two pointers main and last. Run last pointer untill n, then start incrementing 
+both pointers untill last reaches end of the list. This point first is pointing to the nth node from the back)
+
+class Node
+{
+    int val;
+    Node next;
+    Node(int val)
+    {
+    this.val=val;
+    next = null;
+    }
+}
+
+public class LinkedList
+{
+    Node head;
+    LinkedList()
+    {
+        head = new Node(0);
+        head.next = null;
+    }
+    public void add(int v)
+    {
+        Node temp = head;
+        Node prev = null;
+        Node node = new Node(v);
+        while(temp!=null)
+        {
+            prev= temp;
+            temp=temp.next;
+            
+        }
+        temp = node;
+        prev.next=temp;
+        temp.next= null;
+    }
+    public void display()
+    {
+        Node temp = head.next;
+        while(temp!=null)
+        {
+            System.out.print(temp.val + " ");
+            temp=temp.next;
+        }
+    }
+    
+    public int nthnode(int n)
+    {
+        Node temp = head.next;
+        Node first =head.next;
+        int i=1;
+        while(i<n && temp!=null)
+        {
+            temp=temp.next;
+            i++;
+        }
+        while(temp!=null)
+        {
+            temp=temp.next;
+            head=head.next;
+        }
+        return head.val;
+    }
+    public static void main(String args[])
+    {
+        LinkedList ll = new LinkedList();
+        ll.add(1);
+        ll.add(2);
+        ll.add(3);
+        ll.add(4);
+        ll.add(5);
+        ll.add(6);
+        ll.add(7);
+        ll.display();
+        System.out.println();
+        System.out.println(ll.nthnode(7));
+    }
+}
