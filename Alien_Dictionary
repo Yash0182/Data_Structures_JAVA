@@ -1,0 +1,99 @@
+//This consists of code base to find out the order of characters in any language
+//Tag: Topological Sort
+
+import java.util.*;
+class Graph
+{
+    ArrayList<Integer> vertex[] ;
+    Graph(int v)
+    {
+        vertex = new ArrayList[v];
+        for(int i=0;i<v;i++)
+        {
+            vertex[i]=new ArrayList();
+        }
+    }
+    public void addEdge(int v1, int v2)
+    {
+        vertex[v1].add(v2);
+    }
+    public void topologicalOrder()
+    {
+        Queue<Integer> q = new LinkedList();
+        HashSet<Integer> vis= new HashSet();
+        int depend[]=new int[vertex.length];
+        for(int i=0;i<vertex.length;i++)
+        {
+            for(int ad:vertex[i])
+            depend[ad]++;
+            
+        }
+        for(int i=0;i<vertex.length;i++)
+        {
+            if(depend[i]==0)
+            {
+                q.add(i);
+                vis.add(i);
+             }
+        }
+        while(!q.isEmpty())
+        {
+            int root = q.poll();
+            char c = (char)(root+'a');
+            System.out.println(c);
+            for(int i:vertex[root])
+            {
+                    depend[i]--;
+                    if((depend[i]==0) && (!vis.contains(i)))
+                    {
+                        q.add(i);
+                        vis.add(i);
+                    }
+                
+            }
+        }
+        for(int i=0;i<vertex.length;i++)   //for those vertices, whose dependency cannot be resolved
+        {
+        if(depend[i]!=0)
+            System.out.println(i);
+        }
+    }
+    
+    
+}
+public class Sol
+{
+    public static void main(String args[])
+    {
+        String words[]={"caa", "aaa", "aab"};
+        sort(words);
+    }
+    
+    public static void sort(String words[])
+    {
+        HashSet res =new HashSet();
+        
+        for(String word:words)
+        {
+            for(char c : word.toCharArray())
+            {
+                res.add(c);
+            }
+        }
+        Graph g =new Graph(res.size());
+        for(int i=0;i<words.length-1;i++)
+        {
+            String a = words[i];
+            String b = words[i+1];
+            for(int j=0;j<Math.min(a.length(),b.length());j++)
+            {
+                if(a.charAt(j)!=b.charAt(j))
+                {
+                    g.addEdge(a.charAt(j)-'a',b.charAt(j)-'a');
+                    break;
+                }
+            }
+        }
+        g.topologicalOrder();
+    }
+}
