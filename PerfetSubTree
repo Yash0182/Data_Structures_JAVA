@@ -1,0 +1,30 @@
+Given a tree, below code determines the number of nodes in a perfect subtree.
+Perfect Subtree: Every node has either 0 or 2 child nodes, and leaves are fully filled.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    static int max=0;
+    public boolean perfectSubtree(TreeNode s) {
+        
+        helper(s);
+        System.out.println(max);
+        return false;
+    }
+    public int helper(TreeNode root)
+    {
+            if(root==null)
+                return 0;
+            int left = helper(root.left);
+            int right = helper(root.right);
+            max= Math.max(max,2*Math.min(left,right)+1);
+            return 2*Math.min(left,right)+1;
+    }
+}
