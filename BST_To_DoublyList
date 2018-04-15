@@ -1,0 +1,136 @@
+Convert BST to Doubly Linked List
+Intuition; Do Inorder Traversaal and convert BST to Singely List, then using next pointers assign the prev pointers also
+
+public class Solution
+{
+    public static void main(String args[])   
+    {
+        Tree t = new Tree();
+        t.insert(10);
+        t.insert(1);
+        t.insert(106);
+        t.insert(21);
+        t.insert(5);
+        t.insert(15);
+        t.insert(52);
+        t.insert(556);t.insert(44);t.insert(50);
+        Node n = new Node();
+        n.treeToList(t);
+    }
+    
+    
+}
+//Class To create Doubly Linked List
+class Node 
+{
+    int val;
+    Node next,head;
+    Node prev,next1;
+    Node(){};
+    Node(int val)
+    {
+        this.val = val;
+        
+        next1 = null;
+    }
+    
+    public void treeToList(Tree t)
+    {
+        
+        TreeNode root = t.getRoot();
+        head = new Node(0);
+        next1=head;
+        helper(root,null);
+        System.out.println(head.val);
+        Node first = next1;    
+        Node curr = next1;
+        next1=next1.next;
+        
+        //Converting Singly List to Doubly List here
+        while(next1.next!=null)    
+        {
+            next1.prev=curr;
+            curr = next1;
+            next1=next1.next;
+            
+        }
+        
+        while(first!=null)
+        {
+            System.out.print(first.val + "->");
+            first=first.next;
+        }
+        System.out.println("");
+        while(curr!=null)
+        {
+            System.out.print(curr.val + "->");
+            curr=curr.prev;
+        }
+        
+    }
+    //helper function used to convert BST to Singly List first
+    public void helper(TreeNode root, Node prev1)
+    {
+        if(root==null)
+            return ;
+        helper(root.left,prev1);
+        //here (head)0->prev(head)->prev(head)->
+        prev1 = new Node(root.val);
+        head.next=prev1;
+        head=prev1;
+        helper(root.right,prev1);
+        
+    }
+}
+
+//Class To Create BST
+class TreeNode
+{
+    int val;
+    TreeNode left, right;
+    TreeNode(){};
+    TreeNode(int val)
+    {
+        this.val = val;
+    }
+}
+
+class Tree extends TreeNode
+{
+    TreeNode root;
+    Tree()
+    {
+        root = null;
+    }
+    public void insert(int val)
+    {
+        TreeNode temp = new TreeNode(val);
+        if(root==null)
+        root=temp;
+        else
+        {
+            TreeNode curr = root, prev = null;
+            while(curr!=null)
+            {
+                prev = curr;
+                if(curr.val>val)
+                {
+                    curr=curr.left;
+                }
+                else
+                curr = curr.right;
+            }
+            if(prev.val < val)
+            {
+                prev.right=temp;
+            }
+            else
+            prev.left=temp;
+        }
+    }
+    
+    public TreeNode getRoot()
+    {
+        return root;
+    }
+}
