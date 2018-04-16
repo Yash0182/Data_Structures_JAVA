@@ -1,0 +1,67 @@
+//The code base includes Sorting a stack
+//Steps to be followed are:
+
+    Create a temporary stack say tmpStack.
+    While input stack is empty do this: 
+      Pop an element from input stack call it x. while temporary stack is not empty and top of stack is greater than x, pop from temporary stack and push it to the input stack. 
+      Else, push temp in tempory of stack.
+    The sorted numbers are in tmpStack.
+
+
+import java.util.*;
+public class Solution
+{
+    public static void main(String args[])
+    {
+        Stack<Integer> s = new Stack();
+        s.push(12);
+        s.push(1);
+        s.push(10);
+        s.push(4);
+        s.push(32);
+        s.push(8);
+        s.push(7);
+        System.out.println(s);
+        s= sortStack(s);
+        System.out.println(s);
+    }
+    public static Stack<Integer> sortStack(Stack<Integer> s)
+    {
+    int max = s.pop();
+    Stack<Integer> temp = new Stack();
+    while(!s.isEmpty())                     
+    {
+        int top = s.pop();
+        if(max<top)
+        {
+            if((temp.isEmpty())|| (temp.peek()>top))
+            temp.push(top);
+            else
+            {
+                while(!(temp.isEmpty())&&(temp.peek()<top))
+                {
+                    s.push(temp.pop());
+                }
+                temp.push(top);
+            }
+        }
+        else
+        {
+            if((temp.isEmpty())|| (temp.peek()>max))
+            temp.push(max);
+            else
+            {
+            while(!(temp.isEmpty())&&(temp.peek()<max))
+                {
+                    s.push(temp.pop());
+                }
+                temp.push(max);
+            }
+            max=top;
+        }
+    }
+    if(temp.peek()!=max)
+    temp.push(max);
+    return temp;
+    }
+}
