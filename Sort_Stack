@@ -27,13 +27,11 @@ public class Solution
     }
     public static Stack<Integer> sortStack(Stack<Integer> s)
     {
-    int max = s.pop();
     Stack<Integer> temp = new Stack();
-    while(!s.isEmpty())                     
+    while(!s.isEmpty())
     {
         int top = s.pop();
-        if(max<top)
-        {
+        
             if((temp.isEmpty())|| (temp.peek()>top))
             temp.push(top);
             else
@@ -44,24 +42,9 @@ public class Solution
                 }
                 temp.push(top);
             }
-        }
-        else
-        {
-            if((temp.isEmpty())|| (temp.peek()>max))
-            temp.push(max);
-            else
-            {
-            while(!(temp.isEmpty())&&(temp.peek()<max))
-                {
-                    s.push(temp.pop());
-                }
-                temp.push(max);
-            }
-            max=top;
-        }
+        
+    
     }
-    if(temp.peek()!=max)
-    temp.push(max);
     return temp;
     }
 }
