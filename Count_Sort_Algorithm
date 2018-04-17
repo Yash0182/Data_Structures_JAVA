@@ -1,0 +1,35 @@
+//Counting Sort is not a comparison based sorting. It running time complexity is O(n) with space proportional to the range of data.
+//This code base consists of code for Counting Sort
+//For Further Details: https://www.geeksforgeeks.org/counting-sort/
+
+import java.util.*;
+public class MyClass {
+    public static void main(String args[]) {
+        int nums[] = new int[]{1, 4, 1, 2, 7, 5,12,12,11,12,22};
+        int max = nums[0];
+        for(int i=1;i<nums.length;i++)
+        {
+            max= Math.max(max,nums[i]);
+        }
+        int res[] = new int[max+1];
+        int res1[] = new int[max+nums.length];
+        for(int i=0;i<=max && i<nums.length;i++)
+        {
+            ++res[nums[i]];
+        }
+        for(int i=1;i<=max;i++)
+        {
+            res[i]+=res[i-1];
+        }
+        for(int i=0;i<=max && i<nums.length;i++)
+        {
+            int temp = nums[i];
+            int index = res[temp]--;
+            res1[index]=temp;
+        }
+        for(int i=0;i<=max;i++)
+        {
+            System.out.print(res1[i] + " ");
+        }
+    }
+}
