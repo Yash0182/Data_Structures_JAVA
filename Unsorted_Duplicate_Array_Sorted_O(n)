@@ -1,0 +1,27 @@
+//This code contains algorithm to sort the unsorted array containing duplicates (duplicates removed) in O(n)
+//Use an extra array whose length is equal to the max element of input array, then keep on putting the elements to their right index.
+
+import java.util.*;
+public class MyClass {
+    public static void main(String args[]) {
+    
+        int nums[] = new int[]{1,1,3,3,2,1,1,4,21};
+        int max=nums[0];
+        
+        for(int i:nums)
+        {
+            max = Math.max(max,i)    ;
+        }
+        int res[]=new int[max];
+        for(int i=0;i<nums.length;i++)
+        {
+            res[nums[i]-1] = nums[i];
+            
+        }
+        for(int i=0;i<res.length;i++)
+        {
+            System.out.println(res[i]);
+        }
+    }
+    
+}
