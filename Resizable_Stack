@@ -1,0 +1,74 @@
+//Below code consists of logic to implement resizable Stack using Linked List
+
+import java.util.*;
+public class MyClass {
+    
+    static int size;
+    static int i=0;
+    Node head;
+    MyClass(int size1)
+    {
+        head = new Node(0);
+        size = size1;
+        
+    }
+    public void setSize(int edit)
+    {
+        size = edit;
+        
+    }
+    public boolean add(int n)
+    {
+        System.out.println(i + " "+size);
+        if(i>=size)
+        return false;
+        Node temp = head;
+        Node node = new Node(n);
+        node.next = temp;
+        head = node;
+        i++;
+        return true;
+    }
+    public int get()
+    {
+        if(head.next!=null)
+        {
+            Node temp = head;
+            head = head.next;
+            i--;
+            return temp.val;
+        }
+        return 0;
+    }
+    public static void main(String args[]) {
+        
+        MyClass m = new MyClass(3);
+        System.out.println(m.add(3));
+        System.out.println(m.add(13));
+        System.out.println(m.add(23));
+        System.out.println(m.add(33));
+        System.out.println(m.get());
+        System.out.println(m.get());
+        m.setSize(4);
+        System.out.println(m.add(43));
+        m.setSize(5);
+        System.out.println(m.add(63));
+        System.out.println(m.get());
+        System.out.println(m.get());
+        System.out.println(m.get());
+        System.out.println(m.add(63));
+        System.out.println(m.get());
+        
+    }
+    
+}
+
+class Node
+{
+    Node next;
+    int val;
+    Node(int val)
+    {
+        this.val = val;
+    }
+}
