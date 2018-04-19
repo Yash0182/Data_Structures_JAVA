@@ -1,0 +1,35 @@
+//String Reversal in Recursive Manner
+
+import java.util.*;
+public class MyClass {
+    String res="";
+    public static void main(String args[])
+    {
+        MyClass m = new MyClass();
+        System.out.println(m.helper("Yash Bansal Is Very Deep Thinker"));
+    }
+    public String helper(String s)
+    {
+        
+        if(s.length()==0)         //Recursion Break Statement when length() is empty
+        return "";
+        else
+        helper(s.substring(1));   //Recursively Iterate with the next char
+        res+=s.substring(0,1);    //Always Take The first character of the string
+        return res;
+    }
+}
+
+
+/*
+Initial String: "Yash"
+"Yash"  
+"ash"
+"sh"
+"h"
+""                //Return Statement For Recursion
+"h"--> h          //Take only the first character
+"sh"-->hs
+"ash"-->hsa
+"Yash"-->hsaY
+*/
