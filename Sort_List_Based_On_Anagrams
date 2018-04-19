@@ -1,0 +1,52 @@
+//First, collect all anagrams from the dictionary in the hashMap and then compare with the list, push everything to the max Heap.
+
+import java.util.*;
+public class MyClass {
+    public static void main(String args[]) {
+        MyClass m = new MyClass();
+        m.order();
+    }
+    public void order()
+    {
+        PriorityQueue<Tuple>pq = new PriorityQueue(new Comparator<Tuple>()
+        {
+            public int compare(Tuple a,Tuple b)
+            {
+                return b.val-a.val;
+            }
+        });
+        String dict[] = new String[]{"rat","cat","tar","mat","atm","tma","act","sat","ats","bat"};
+        String arr[]=new String[]{"act","Yash","sct","mat"};
+        HashMap<String,Integer>hm = new HashMap();
+        for(String s:dict)
+        {
+            char ch[] = s.toCharArray();
+            Arrays.sort(ch);
+            String news = new String(ch);
+            hm.put(news,hm.getOrDefault(news,0)+1);
+        }
+        for(String s:arr)
+        {
+            char ch[] = s.toCharArray();
+            Arrays.sort(ch);
+            String news = new String(ch);
+            pq.add(new Tuple(s,hm.getOrDefault(news,0)));
+        }
+        System.out.println(pq);
+    }
+}
+
+class Tuple
+{
+    int val;
+    String s;
+    Tuple(String s,int val)
+    {
+        this.val=val;
+        this.s=s;
+    }
+    public String toString()
+    {
+        return this.s +" "+ this.val;
+    }
+}
