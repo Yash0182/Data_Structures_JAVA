@@ -1,0 +1,60 @@
+//Find the least distance between any given two characters in a given input string  
+
+/*Use two pointers
+First run two diff loops and update this pointers value by the given first occurence of characters
+Now keep the value which is large, and assign the remaining pointer as 0. (We are doing this, bcz when we will find the difference in the next step, we will be subtratcing the two values and will keep the minimum difference)
+Now run the loop and keep on updating the values of pointers and finding he difference
+*/
+
+public class HelloWorld{
+
+     public static void main(String []args){
+         
+         
+         char nums[] = new char[]{'y','a','s','d','a','y','h','a','y','s'};
+         int i=0, y=0, res = Integer.MAX_VALUE;
+         
+         for(int x=0;x<nums.length;x++)
+         {
+             char c=nums[x];
+             if(c=='h')
+             {
+                 y=x;
+                 System.out.println(y + "y");
+                 break;
+             }
+         }
+         for(int x=0;x<nums.length;x++)
+         {
+              char c=nums[x];
+             
+             if(c=='y')
+             {
+                 i=x;
+                 System.out.println(i + "i");
+                 break;
+             }
+         }
+         
+         i=(i>y)?i:0;
+         y=(y>i)?y:0;
+         for(int x=0;x<nums.length;x++)
+         {
+             char c=nums[x];
+             if(c=='y')
+             {
+                 i=x;
+                 System.out.println(i + "i");
+             }
+             if(c=='h')
+             {
+                 y=x;
+                 System.out.println(y);
+             }
+             res =Math.min(res,Math.abs(i-y));
+          
+         }
+         
+        System.out.println(res);
+     }
+}
