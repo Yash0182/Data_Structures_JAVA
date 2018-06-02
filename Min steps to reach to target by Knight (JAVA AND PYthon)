@@ -1,0 +1,116 @@
+Q. Given a square chessboard of N x N size, the position of Knight and position of a target is given. We need to find out minimum steps a Knight will take to reach the target position.
+
+Hint BFS can be used to solve this problem. We try all 8 possible positions where a Knight can reach from its position. If reachable position is not already visited and is inside the board, we push this state into queue with distance 1 more than its parent state. Finally we return distance of target position, when it gets pop out from queue.
+
+
+JAVA Version:
+
+import java.util.*;
+public class MyClass {
+    public static void main(String args[]) {
+        HashMap<Integer,Integer>hm = new HashMap();
+        int src = 20, dest = 36;
+        int k=0;
+        int level=0;
+        for(int i=0;i<8;i++)
+        {
+            for(int j=0;j<8;j++)
+            {
+                hm.put(k,i*10+j);
+                k++;
+            }
+        }
+        int x = hm.get(src);
+        int y = hm.get(dest);
+        if(x==y)
+            return 0;
+        Queue<Integer> q = new LinkedList();
+        HashSet<Integer>vis = new HashSet();
+        q.add(x);
+        vis.add(x);
+        while(!q.isEmpty())
+        {
+            int size = q.size();
+            
+            for(int i=0;i<size;i++)
+            {
+                int res = q.poll();
+                
+                if(res == hm.get(dest))
+                    return level;
+                generateNumber(res,q,vis,hm);
+                    
+            }
+            level++;
+        }
+    }
+    
+    public static void generateNumber(int x,Queue<Integer>q,HashSet<Integer>s,HashMap<Integer,Integer>hm)
+    {
+        int d[]=new int[8];
+         d[1] = x+8;
+         d[2] = x-8;
+         d[3] = x+19;
+         d[4] = x-19;
+         d[5] = x+21;
+         d[6] = x-21;
+         d[7] = x+12;
+         d[0] = x-12;
+         for(int i=0;i<8;i++)
+         {
+            if(hm.containsValue(d[i]) && !s.contains(d[i]))
+            {
+                s.add(d[i]);
+                q.add(d[i]);
+            }
+         }
+    }
+}
+
+
+
+
+Python Version:
+
+from collections import deque
+def answer(src, dest):
+    hm = {}
+    k=0
+    level=0
+    for i in range(0,8):
+        for j in range(0,8):
+            hm[k]=i*10+j
+            k=k+1;
+    
+    
+    x = hm[src]
+    y = hm[dest]
+    if x==y:
+        return 0
+    q=deque([])
+    vis = set()
+    vis.add(x)
+    q.append(x)
+    while q:
+        size = len(q)
+        
+        for i in range (0,size):
+            res = q.popleft()
+            if res==hm[dest]:
+                return level
+            generateNumber(res,q,vis,hm)
+        level=level+1
+        
+
+def generateNumber(res,q,vis,hm):
+    d=[res+8,res-8,res+12,res-12,res+21,res-21,res+19,res-19]
+    
+    for i in range (0,8):
+        if d[i] not in vis:
+            if d[i] in hm.values():
+                q.append(d[i])
+                vis.add(d[i])
+    
+    
+    
+answer(20,36)    
