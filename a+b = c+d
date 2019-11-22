@@ -3,7 +3,6 @@ Find four elements a, b, c and d in an array such that a+b = c+d
 Use hashmap and store all pair sums, with their respective pairs in the hashmap, defined in a Tuple class.
 While inserting any new sum, just chk once whether it is already present in the HashMap and if present the values should be different.
 TestGit about the branch
-Uses HashMap
 */
 import java.util.*;
 
