@@ -1,4 +1,4 @@
-package com.cisco.webex.signup.user.validation;
+package com.validation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
