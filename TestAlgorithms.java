@@ -64,12 +64,11 @@ public class TestAlgorithms {
     public int dijsktraAlgo(int [][]graph)
     {
 
-        int dist[]=new int[graph.length];
         PriorityQueue<Pair>pq = new PriorityQueue<>();
-        int distance=0;
         int vertex=8;
         boolean[]visited = new boolean[graph.length];
 
+        visited[0]=true;
         findAndAddNeighbors(pq,graph[0],visited,0);
 
         while(!pq.isEmpty() && pq.peek().index!=vertex)
@@ -77,10 +76,8 @@ public class TestAlgorithms {
             Pair p = pq.poll();
             visited[p.index]=true;
             System.out.println("index "+ p.index +" distance: "+p.dist);
-            //dist[vertex]=dist[vertex]+p.dist;
             findAndAddNeighbors(pq,graph[p.index],visited,p.dist);
         }
-        dist[vertex]=dist[vertex]+pq.peek().dist;
         return pq.peek().dist;
 
     }
@@ -91,6 +88,7 @@ public class TestAlgorithms {
         for(int i=0;i<graph.length;i++)
         {
             int vert=i;
+            boolean found=false;
             if(graph[i]!=0&&!visited[i])
             {
                 Iterator<Pair> it =pq.iterator();
@@ -104,10 +102,13 @@ public class TestAlgorithms {
                             it.remove();
 
                         }
+                        else
+                            found=true;
                         break;
                     }
                 }
-                pq.add(new Pair(graph[i]+nodeDist,i));
+                if(!found)
+                    pq.add(new Pair(graph[i]+nodeDist,i));
             }
         }
     }
