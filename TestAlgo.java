@@ -4,7 +4,7 @@ public class TestAlgo {
 
     public static void main(String args[])
     {
-        int arr[] = mergeSort(new int[]{3,6,1,8,9,4,2,7},0,7);
+        int arr[] = mergeSort(new int[]{3,6,1,11,29,3,5,8,9,4,2,7,2},0,12);
         for(int i:arr)
         {
             System.out.print(i + " ");
@@ -23,10 +23,14 @@ public class TestAlgo {
             return arr;
         int mid = low + (high-low)/2;
         int leftarr[] = separateArray(arr,low,mid);
-        int rightarr[]= separateArray(arr,mid+1,high); 
+        int rightarr[]= separateArray(arr,mid+1,high);
         int left[] = mergeSort(leftarr,low,mid);
         //this is important, where we pass the pointers as low and mid again to the right side as well.
-        int right[] = mergeSort(rightarr,low,mid);
+        int right[]=null;
+        if(high%2!=0)
+            right= mergeSort(rightarr,low,mid);
+        else
+            right= mergeSort(rightarr,low,mid-1);
 
         return merge(left,right);
     }
