@@ -23,7 +23,7 @@ public class TestAlgo {
             return arr;
         int mid = low + (high-low)/2;
         int leftarr[] = separateArray(arr,low,mid);
-        int rightarr[]= separateArray(arr,mid+1,high);cd 
+        int rightarr[]= separateArray(arr,mid+1,high); 
         int left[] = mergeSort(leftarr,low,mid);
         //this is important, where we pass the pointers as low and mid again to the right side as well.
         int right[] = mergeSort(rightarr,low,mid);
